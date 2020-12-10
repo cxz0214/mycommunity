@@ -1,0 +1,7 @@
+2020-12-10 08:50:13,257 INFO [main] c.e.c.m.TestLogger [StartupInfoLogger.java:55] Starting TestLogger using Java 1.8.0_271 on LAPTOP-UCCD16F6 with PID 25248 (started by Alex in D:\PracticeProject\mycommunity)
+2020-12-10 08:50:13,259 INFO [main] c.e.c.m.TestLogger [SpringApplication.java:660] No active profile set, falling back to default profiles: default
+2020-12-10 08:50:15,125 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:181] Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-10 08:50:15,269 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-12-10 08:50:15,595 INFO [main] c.e.c.m.TestLogger [StartupInfoLogger.java:61] Started TestLogger in 2.712 seconds (JVM running for 3.876)
+2020-12-10 08:50:15,851 INFO [main] c.e.c.m.TestLogger [TestLogger.java:19] info log
+2020-12-10 08:50:15,876 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:218] Shutting down ExecutorService 'applicationTaskExecutor'
