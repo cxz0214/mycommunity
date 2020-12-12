@@ -1,8 +1,10 @@
 package cn.edu.cug.mycommunity;
 
 import cn.edu.cug.mycommunity.dao.DiscussPostMapper;
+import cn.edu.cug.mycommunity.dao.LoginTicketMapper;
 import cn.edu.cug.mycommunity.dao.UserMapper;
 import cn.edu.cug.mycommunity.entity.DiscussPost;
+import cn.edu.cug.mycommunity.entity.LoginTicket;
 import cn.edu.cug.mycommunity.entity.User;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,9 @@ import java.util.List;
 public class MapperTest {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
@@ -73,4 +78,24 @@ public class MapperTest {
         int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
     }
+
+    @Test
+    public void testInsertLoginTicket(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(200);
+        loginTicket.setStatus(0);
+        loginTicket.setTicket("acg");
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + 60 * 1000 * 10 ));
+        loginTicketMapper.insertLogginTicket(loginTicket);
+
+    }
+
+    @Test void testSelectLoginTicket(){
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("acg");
+        if(loginTicket != null)
+           loginTicketMapper.updateStatus("acg",1);
+        else
+            System.out.println("更新失败 !");
+    }
+
 }
