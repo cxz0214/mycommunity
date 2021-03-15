@@ -40,20 +40,22 @@ public class LoginController implements CommunityConstant {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-
+    //打开注册页面
     @RequestMapping(path = "/register",method = RequestMethod.GET)
     public String getRegisterPage(){
         return "/site/register";
     }
 
+    //注册提交
     @RequestMapping(path = "/register",method = RequestMethod.POST)
     public String register(Model model, User user){
         Map<String,Object> map = userService.register(user);
+        //注册成功
         if(map == null || map.isEmpty()){
             model.addAttribute("msg","账号注册成功,我们已经向您发送了一封激活邮件，请尽快激活!");
             model.addAttribute("target","/index");
             return "/site/operate-result";
-        }else{
+        }else{ /*注册失败*/
             model.addAttribute("usernameMsg",map.get("usernameMsg"));
             model.addAttribute("passwordMsg",map.get("passwordMsg"));
             model.addAttribute("emailMsg",map.get("emailMsg"));

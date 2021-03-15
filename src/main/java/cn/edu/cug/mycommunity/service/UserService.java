@@ -46,25 +46,28 @@ public class UserService implements CommunityConstant {
         return userMapper.selectById(id);
     }
 
+    //用户注册
     public Map<String,Object> register(User user){
         Map<String,Object> map = new HashMap<>();
 
         //空值处理
         if(user == null)
             throw new IllegalArgumentException("参数不能为空!");
+        //注册时账号不能为空
         if(StringUtils.isBlank(user.getUsername())){
             map.put("usernameMsg","账号不能为空!");
             return map;
         }
+        //注册时密码不能为空
         if(StringUtils.isBlank(user.getPassword())){
             map.put("emailMsg","密码不能为空!");
             return map;
         }
+        //注册时邮箱不能为空
         if(StringUtils.isBlank(user.getEmail())){
             map.put("emailMsg","邮箱不能为空!");
             return map;
         }
-
 
         //验证账号是否存在
         User u = userMapper.selectByName(user.getUsername());
@@ -100,24 +103,23 @@ public class UserService implements CommunityConstant {
         context.setVariable("url",url);
         String content = templateEngine.process("/mail/activation",context);
         mailClient.sendMail(user.getEmail(),"激活账号",content);
-
-
         return map;
     }
 
-
+    //通过激活码激活账号
     public int activation(int userId,String code){
         User user = userMapper.selectById(userId);
         if(user.getStatus() == 1){
-            return ACTIVATION_REPEAT;
+            return ACTIVATION_REPEAT;/*重复激活*/
         }else if( user.getActivationCode().equals(code)){
             userMapper.updateStatus(userId,1);
-            return ACTIVATION_SUCCESS;
+            return ACTIVATION_SUCCESS; /*激活成功*/
         }else{
-            return ACTIVATION_FAILURE;
+            return ACTIVATION_FAILURE; /*激活失败*/
         }
 
     }
+
 
 
     public Map<String,Object> login(String username,String password,int expiredSeconds){
