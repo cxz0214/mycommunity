@@ -121,7 +121,7 @@ public class UserService implements CommunityConstant {
     }
 
 
-
+    //登录功能
     public Map<String,Object> login(String username,String password,int expiredSeconds){
         Map<String,Object> map = new HashMap<>();
 
@@ -141,7 +141,7 @@ public class UserService implements CommunityConstant {
             map.put("usernameMsg","账户不存在!");
             return map;
         }
-        //验证状态
+        //验证账号是否激活
         if( user.getStatus() == 0){
             map.put("usernameMsg","该账号未激活!");
             return map;
@@ -164,6 +164,7 @@ public class UserService implements CommunityConstant {
         return map;
     }
 
+    //退出登录，注销凭证
     public void logout(String ticket){
         loginTicketMapper.updateStatus(ticket,1);
     }

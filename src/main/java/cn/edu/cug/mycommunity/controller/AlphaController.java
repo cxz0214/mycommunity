@@ -150,6 +150,7 @@ public class AlphaController {
         cookie.setPath("/mycommunity/alpha");
         //设置cookie的生效时间
         cookie.setMaxAge(60*10);
+        //发送cookie
         response.addCookie(cookie);
         return "set cookie";
     }

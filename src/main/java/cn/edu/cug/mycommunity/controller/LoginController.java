@@ -62,7 +62,7 @@ public class LoginController implements CommunityConstant {
             return "/site/register";
         }
     }
-
+    //点击激活链接，激活账号
     @RequestMapping(value = "/activation/{userId}/{code}",method = RequestMethod.GET)
     public String activation(Model model, @PathVariable("userId") int userId,@PathVariable("code") String code){
         int result = userService.activation(userId,code);
@@ -84,7 +84,7 @@ public class LoginController implements CommunityConstant {
     public String getLoginPage(){
         return "/site/login";
     }
-
+    //生成验证码
     @RequestMapping(path = "/kaptcha",method = RequestMethod.GET)
     public void getKaptcha(HttpServletResponse response, HttpSession session)  {
         //生成验证码
@@ -101,7 +101,7 @@ public class LoginController implements CommunityConstant {
             logger.error("响应验证码失败："+ e.getMessage());
         }
     }
-
+    //登录功能
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     public String login(String username,String password,String code,boolean rememberme,
                         Model model,HttpSession session,HttpServletResponse response){
@@ -126,6 +126,7 @@ public class LoginController implements CommunityConstant {
             return "/site/login";
         }
     }
+    //退出登录
     @RequestMapping(path = "/logout",method = RequestMethod.GET)
     public String logout(@CookieValue("ticket") String ticket){
         userService.logout(ticket);

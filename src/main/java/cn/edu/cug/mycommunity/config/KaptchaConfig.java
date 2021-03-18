@@ -14,13 +14,14 @@ public class KaptchaConfig {
 
     @Bean
     public Producer kaptchaProducer(){
+        //验证码格式
         Properties properties = new Properties();
         properties.setProperty("kaptcha.image.width","100");
         properties.setProperty("kaptcha.image.height","40");
-        properties.setProperty("kaptcha.textproducer.font.size","32");
-        properties.setProperty("kaptcha.textproducer.font.color","red");
+        properties.setProperty("kaptcha.textproducer.font.size","24");
+        properties.setProperty("kaptcha.textproducer.font.color","blue");
         properties.setProperty("kaptcha.textproducer.char.string","0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        properties.setProperty("kaptcha.textproducer.char.length","4");
+        properties.setProperty("kaptcha.textproducer.char.length","6");
         properties.setProperty("kaptcha.noise.impl","com.google.code.kaptcha.impl.NoNoise");
 
         DefaultKaptcha kaptcha = new DefaultKaptcha();

@@ -1,6 +1,7 @@
 package cn.edu.cug.mycommunity.controller;
 
 
+import cn.edu.cug.mycommunity.annotation.LoginRequired;
 import cn.edu.cug.mycommunity.entity.User;
 import cn.edu.cug.mycommunity.service.UserService;
 import cn.edu.cug.mycommunity.util.CommunityUtil;
@@ -44,11 +45,23 @@ public class UserController {
     @Autowired
     private HostHolder hostHolder;
 
+    /**
+     * 设置用户头像
+     * @return
+     */
+    @LoginRequired
     @RequestMapping(path = "/setting",method = RequestMethod.GET)
     public String getSettingPage(){
         return "/site/setting";
     }
 
+    /**
+     * 上传用户头像
+     * @param headerImage
+     * @param model
+     * @return
+     */
+    @LoginRequired
     @RequestMapping(path = "/upload",method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model){
         if(headerImage == null){
@@ -69,7 +82,7 @@ public class UserController {
             headerImage.transferTo(dest);
         } catch (IOException e) {
             logger.error("上传文件失败" + e.getMessage());
-            throw  new RuntimeException("文件上传失败，服务器发生异常！");
+            throw  new RuntimeException("文件上传失败，服务器发生异常！",e);
         }
         //更新当前用户的头像路径
         User user = hostHolder.getUser();

@@ -28,6 +28,14 @@ public class AlphaInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    /**
+     * controller 之后执行
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         logger.debug("postHandl" + handler.toString());

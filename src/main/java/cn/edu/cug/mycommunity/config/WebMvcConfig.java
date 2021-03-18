@@ -1,6 +1,8 @@
 package cn.edu.cug.mycommunity.config;
 
+import cn.edu.cug.mycommunity.annotation.LoginRequired;
 import cn.edu.cug.mycommunity.controller.interceptor.AlphaInterceptor;
+import cn.edu.cug.mycommunity.controller.interceptor.LoginRequiredInterceptor;
 import cn.edu.cug.mycommunity.controller.interceptor.LoginTicketInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +17,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginTicketInterceptor loginTicketInterceptor;
 
+    @Autowired
+    private LoginRequiredInterceptor loginRequiredInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(alphaInterceptor).excludePathPatterns("/*/*.css","/*/*.js","/*/*.png","/*/*.jpg","/*/*.jpeg")
                 .addPathPatterns("/register","/login");
 
         registry.addInterceptor(loginTicketInterceptor).excludePathPatterns("/*/*.css","/*/*.js","/*/*.png","/*/*.jpg","/*/*.jpeg");
+        registry.addInterceptor(loginRequiredInterceptor).excludePathPatterns("/*/*.css","/*/*.js","/*/*.png","/*/*.jpg","/*/*.jpeg");
 
     }
 }
