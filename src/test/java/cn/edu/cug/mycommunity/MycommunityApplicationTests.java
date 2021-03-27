@@ -63,9 +63,6 @@ public class MycommunityApplicationTests implements ApplicationContextAware {
 	@Autowired
 	private AlphaConfig alphaConfig;
 
-
-
-
 	@Test
 	public void testDI(){
 		System.out.println(alphaDao);
