@@ -9,9 +9,13 @@ import cn.edu.cug.mycommunity.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -24,6 +28,8 @@ public class AlphaService {
     @Autowired
     private DiscussPostMapper postMapper;
 
+    @Autowired
+    private TransactionTemplate transactionTemplate;
     @Autowired
     private UserMapper userMapper;
 
@@ -73,4 +79,36 @@ public class AlphaService {
 
         return "OK";
     }
+
+    public Object save2(){
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        return transactionTemplate.execute(new TransactionCallback<Object>() {
+            @Override
+            public Object doInTransaction(TransactionStatus transactionStatus) {
+                User user = new User();
+                user.setUsername("beta");
+                user.setSalt(CommunityUtil.generateUUID().substring(0,5));
+                user.setPassword(CommunityUtil.md5("123"+user.getSalt()));
+                user.setEmail("182162122233@gmail.com");
+                user.setHeaderUrl("http://image.nowcoder.com/head/98t.png");
+                user.setCreateTime(new Date());
+                userMapper.insertUser(user);
+
+
+                DiscussPost post = new DiscussPost();
+                post.setUserId(user.getId());
+                post.setTitle("Hello sfsdfdsworld");
+                post.setContent("新人sdfsfsfsfsfd报道");
+                post.setCreateTime(new Date());
+                postMapper.insertDiscussPost(post);
+
+                Integer.valueOf("abc");
+                return "OK";
+            }
+        });
+    }
+
+
 }
