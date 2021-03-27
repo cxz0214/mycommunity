@@ -61,6 +61,7 @@ public class AlphaService {
         user.setCreateTime(new Date());
         userMapper.insertUser(user);
 
+
         DiscussPost post = new DiscussPost();
         post.setUserId(user.getId());
         post.setTitle("Hello world");
