@@ -21,7 +21,7 @@ public class KaptchaConfig {
         properties.setProperty("kaptcha.textproducer.font.size","24");
         properties.setProperty("kaptcha.textproducer.font.color","blue");
         properties.setProperty("kaptcha.textproducer.char.string","0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        properties.setProperty("kaptcha.textproducer.char.length","6");
+        properties.setProperty("kaptcha.textproducer.char.length","4");
         properties.setProperty("kaptcha.noise.impl","com.google.code.kaptcha.impl.NoNoise");
 
         DefaultKaptcha kaptcha = new DefaultKaptcha();

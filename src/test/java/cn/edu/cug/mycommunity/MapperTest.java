@@ -2,9 +2,11 @@ package cn.edu.cug.mycommunity;
 
 import cn.edu.cug.mycommunity.dao.DiscussPostMapper;
 import cn.edu.cug.mycommunity.dao.LoginTicketMapper;
+import cn.edu.cug.mycommunity.dao.MessageMapper;
 import cn.edu.cug.mycommunity.dao.UserMapper;
 import cn.edu.cug.mycommunity.entity.DiscussPost;
 import cn.edu.cug.mycommunity.entity.LoginTicket;
+import cn.edu.cug.mycommunity.entity.Message;
 import cn.edu.cug.mycommunity.entity.User;
 
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,9 @@ public class MapperTest {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser() {
@@ -96,6 +101,38 @@ public class MapperTest {
            loginTicketMapper.updateStatus("acg",1);
         else
             System.out.println("更新失败 !");
+    }
+
+    @Test
+    public void testselectConversations(){
+        List<Message> list = messageMapper.selectConversations(111,0,20);
+        for(Message message : list){
+            System.out.println(message);
+        }
+    }
+    @Test
+    public void testselectConversationCount(){
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testselectLetters(){
+        List<Message> list = messageMapper.selectLetters("111_112",0,20);
+        for(Message message : list){
+            System.out.println(message);
+        }
+    }
+
+    @Test
+    public void testselectLetterCount(){
+        int count = messageMapper.selectLetterCount("111_112");
+        System.out.println(count);
+    }
+    @Test
+    public void testselectLetterUnreadCount(){
+        int count = messageMapper.selectLetterUnreadCount(111,"111_112");
+        System.out.println(count);
     }
 
 }
