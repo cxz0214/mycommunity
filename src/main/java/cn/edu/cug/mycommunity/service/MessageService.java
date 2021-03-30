@@ -28,6 +28,7 @@ public class MessageService {
     }
     public int findLetterCount(String conversationId){
         return messageMapper.selectLetterCount(conversationId);
+
     }
 
 }
